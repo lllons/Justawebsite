@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Get Fit W/Lorenzo — Premium Outdoor Calisthenics, Auckland</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow+Condensed:wght@300;400;600;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Lorenzo brand */
+      --black: #080809;
+      --off-white: #f0ede8;
+      --chalk: #ffffff;
+      --lime: #c8f53b;
+      --gray: #2a2a2d;
+      --mid: #6b6b70;
+      --border: rgba(240,237,232,0.1);
+
+      /* Pricing section overrides */
+      --p-bg: #0a0a0f;
+      --p-surface: #111118;
+      --p-border: #1e1e2e;
+      --p-border-pop: #c8f53b;
+      --p-primary: #c8f53b;
+      --p-primary-glow: rgba(200,245,59,0.2);
+      --p-text: #e8e8f0;
+      --p-muted: #6b6b80;
+      --p-accent: #a0e85c;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--black);
+      color: var(--off-white);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── Custom cursor ── */
+    #cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: var(--lime);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+      mix-blend-mode: difference;
+    }
+    #cursor.expand { width: 40px; height: 40px; }
+
+    @media (hover: none) {
+      body { cursor: auto; }
+      #cursor { display: none; }
+    }
+
+    /* ── Noise ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.04;
+      background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 50;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 48px;
+      transition: all 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(8,8,9,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 16px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.08em;
+      color: var(--chalk);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--lime); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--mid); text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--chalk); }
+    .nav-cta {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 10px 24px;
+      background: var(--lime); color: var(--black);
+      border: none; border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .nav-cta:hover { background: var(--chalk); }
+
+    @media(max-width:768px){
+      nav { padding: 20px 24px; }
+      nav.scrolled { padding: 14px 24px; }
+      .nav-links { display: none; }
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 48px 72px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(8,8,9,0.3) 0%, rgba(8,8,9,0.6) 60%, rgba(8,8,9,1) 100%),
+        url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1600&q=80') center/cover no-repeat;
+    }
+
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        -55deg,
+        transparent 0px,
+        transparent 60px,
+        rgba(200,245,59,0.03) 60px,
+        rgba(200,245,59,0.03) 61px
+      );
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 20px;
+      position: relative; z-index: 2;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 14vw, 13rem);
+      line-height: 0.88;
+      letter-spacing: 0.01em;
+      color: var(--chalk);
+      position: relative; z-index: 2;
+    }
+    .hero-title em {
+      color: var(--lime);
+      font-style: normal;
+      display: block;
+    }
+
+    .hero-sub-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-top: 36px;
+      position: relative; z-index: 2;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .hero-sub-row p {
+      font-size: 1rem; font-weight: 300;
+      line-height: 1.6;
+      color: rgba(240,237,232,0.7);
+      max-width: 400px;
+    }
+
+    .hero-cta { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+
+    .btn-primary {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 14px 36px;
+      background: var(--lime); color: var(--black);
+      border: none; border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--chalk); transform: translateY(-2px); }
+
+    .btn-ghost {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 13px 32px;
+      background: transparent;
+      border: 1px solid rgba(240,237,232,0.3);
+      color: var(--off-white);
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--off-white); background: rgba(240,237,232,0.05); }
+
+    .stat-bar {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      display: flex; border-top: 1px solid var(--border);
+      z-index: 2;
+    }
+    .stat-item {
+      flex: 1;
+      padding: 20px 48px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem; color: var(--lime);
+      letter-spacing: 0.05em;
+    }
+    .stat-label {
+      font-size: 0.7rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--mid);
+      margin-top: 2px;
+    }
+    @media(max-width:768px){
+      #hero { padding: 0 24px 140px; }
+      .stat-bar { flex-direction: row; }
+      .stat-item { padding: 16px 20px; }
+    }
+
+    /* ── SECTION BASE ── */
+    section:not(#pricing-section) { padding: 100px 48px; }
+    @media(max-width:768px){ section:not(#pricing-section) { padding: 72px 24px; } }
+
+    .section-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--lime); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-tag::after {
+      content: ''; display: block;
+      width: 40px; height: 1px; background: var(--lime);
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      color: var(--chalk);
+    }
+
+    /* ── ABOUT / CALISTHENICS ── */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+    @media(max-width:900px){ #about { grid-template-columns: 1fr; gap: 48px; } }
+
+    .about-img-wrap {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+    .about-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%);
+      transition: transform 0.8s ease;
+    }
+    .about-img-wrap:hover img { transform: scale(1.04); }
+
+    .about-label {
+      position: absolute;
+      bottom: 24px; left: 24px;
+      background: var(--lime);
+      color: var(--black);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 2px;
+    }
+
+    .about-content { display: flex; flex-direction: column; gap: 28px; }
+    .about-content p {
+      font-size: 1rem; font-weight: 300;
+      line-height: 1.8; color: rgba(240,237,232,0.75);
+    }
+
+    .cali-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .cali-pill {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 8px 18px;
+      border: 1px solid rgba(200,245,59,0.4);
+      color: var(--lime);
+      border-radius: 2px;
+      background: rgba(200,245,59,0.05);
+    }
+
+    /* ── SCHEDULE ── */
+    #schedule { border-top: 1px solid var(--border); background: var(--black); }
+
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 12px;
+      margin-top: 56px;
+    }
+    @media(max-width:1100px){ .schedule-grid { grid-template-columns: repeat(4, 1fr); } }
+    @media(max-width:600px){ .schedule-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .day-card {
+      background: var(--gray);
+      border: 1px solid rgba(240,237,232,0.08);
+      border-radius: 6px;
+      padding: 24px 20px;
+      display: flex; flex-direction: column; gap: 14px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .day-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--lime);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .day-card:hover { background: #1e1e21; border-color: rgba(200,245,59,0.2); transform: translateY(-4px); }
+    .day-card:hover::before { transform: scaleX(1); }
+    .day-card.rest { opacity: 0.4; }
+    .day-card.rest:hover { transform: none; background: var(--gray); border-color: rgba(240,237,232,0.08); }
+    .day-card.rest::before { display: none; }
+
+    .day-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem; letter-spacing: 0.08em;
+      color: var(--chalk);
+    }
+    .day-time {
+      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--lime);
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+    }
+    .day-workout {
+      font-size: 0.85rem; font-weight: 500;
+      color: var(--off-white);
+      line-height: 1.4;
+    }
+    .day-location {
+      font-size: 0.72rem; color: var(--mid);
+      display: flex; align-items: center; gap: 6px;
+      margin-top: auto;
+    }
+    .day-location svg { flex-shrink: 0; }
+
+    .day-tag {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 10px;
+      background: rgba(200,245,59,0.12);
+      color: var(--lime);
+      border-radius: 2px;
+      align-self: flex-start;
+    }
+
+    .schedule-note {
+      margin-top: 24px;
+      font-size: 0.8rem; color: var(--mid);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .schedule-note::before { content: '⚡'; }
+
+    /* ── SERVICES ── */
+    #services { border-top: 1px solid var(--border); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 56px;
+      border: 1px solid var(--border);
+    }
+    @media(max-width:900px){ .services-grid { grid-template-columns: 1fr; } }
+
+    .service-card {
+      padding: 48px 40px;
+      border-right: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .service-card:last-child { border-right: none; }
+    .service-card:hover { background: var(--gray); }
+
+    .service-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem; color: rgba(200,245,59,0.15);
+      line-height: 1; letter-spacing: 0.05em;
+      margin-bottom: 24px;
+    }
+    .service-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.4rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--chalk); margin-bottom: 14px;
+    }
+    .service-desc {
+      font-size: 0.88rem; font-weight: 300;
+      line-height: 1.75; color: rgba(240,237,232,0.6);
+      margin-bottom: 24px;
+    }
+    .service-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem; color: var(--lime);
+      letter-spacing: 0.04em;
+    }
+    .service-price span {
+      font-family: 'Barlow', sans-serif; font-size: 0.8rem;
+      color: var(--mid); font-weight: 300;
+    }
+
+    .service-footer {
+      margin-top: 20px;
+      font-size: 0.72rem; color: var(--mid);
+      letter-spacing: 0.08em;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .service-footer::before { content: '💳'; font-size: 0.9rem; }
+
+    /* ══════════════════════════════════════════════
+       PRICING SECTION — Integrated from pricing page
+       ══════════════════════════════════════════════ */
+    #pricing-section {
+      border-top: 1px solid var(--border);
+      padding: 100px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    @media(max-width:768px){ #pricing-section { padding: 72px 24px; } }
+
+    /* Background grid for pricing */
+    #pricing-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(200,245,59,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200,245,59,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+    #pricing-section { position: relative; }
+
+    .pricing-container {
+      max-width: 1080px;
+      width: 100%;
+    }
+
+    /* Pricing Header */
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 48px;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .pricing-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      color: var(--chalk);
+      margin-bottom: 16px;
+    }
+    .pricing-header h2 em {
+      color: var(--lime);
+      font-style: normal;
+    }
+
+    .pricing-header p {
+      color: var(--mid);
+      font-size: 1.05rem;
+      line-height: 1.6;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* Toggle */
+    .toggle-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 52px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    .toggle-label {
+      font-size: 0.9rem;
+      color: var(--mid);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .toggle-label.active { color: var(--off-white); }
+
+    .switch {
+      position: relative;
+      width: 48px; height: 26px;
+      cursor: pointer;
+    }
+    .switch input { display: none; }
+
+    .slider-toggle {
+      position: absolute; inset: 0;
+      background: var(--gray);
+      border-radius: 999px;
+      transition: background 0.3s;
+      border: 1px solid rgba(240,237,232,0.15);
+    }
+    .slider-toggle::after {
+      content: '';
+      position: absolute;
+      left: 3px; top: 3px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--mid);
+      transition: transform 0.3s, background 0.3s;
+    }
+    .switch input:checked + .slider-toggle {
+      background: rgba(200,245,59,0.2);
+      border-color: var(--lime);
+    }
+    .switch input:checked + .slider-toggle::after {
+      transform: translateX(22px);
+      background: var(--lime);
+    }
+
+    .save-badge {
+      background: var(--lime);
+      color: var(--black);
+      font-size: 0.65rem;
+      font-weight: 700;
+      font-family: 'Barlow Condensed', sans-serif;
+      padding: 3px 10px;
+      border-radius: 2px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* Pricing Cards */
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .pricing-cards { grid-template-columns: 1fr; }
+      .p-card.popular { transform: none !important; }
+      .p-card.side { transform: none !important; opacity: 1 !important; }
+    }
+
+    .p-card {
+      background: var(--gray);
+      border: 1px solid rgba(240,237,232,0.08);
+      border-radius: 20px;
+      padding: 32px 28px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: fadeUp 0.7s ease both;
+    }
+    .p-card:nth-child(1) { animation-delay: 0.15s; }
+    .p-card:nth-child(2) { animation-delay: 0.25s; }
+    .p-card:nth-child(3) { animation-delay: 0.35s; }
+
+    .p-card.side {
+      opacity: 0.85;
+      transform: scale(0.95);
+    }
+
+    .p-card.popular {
+      border-color: var(--lime);
+      border-width: 2px;
+      transform: translateY(-16px);
+      box-shadow: 0 0 60px rgba(200,245,59,0.15), 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .p-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    }
+    .p-card.popular:hover {
+      transform: translateY(-20px) scale(1.01);
+    }
+
+    /* Popular badge */
+    .popular-badge {
+      position: absolute;
+      top: 0; right: 0;
+      background: var(--lime);
+      color: var(--black);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem; font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 0 18px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .popular-badge svg { width: 12px; height: 12px; fill: currentColor; }
+
+    /* Plan name */
+    .plan-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--mid);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    /* Price */
+    .price-wrap {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .price-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--chalk);
+      transition: all 0.3s ease;
+    }
+    .price-period {
+      font-size: 0.85rem;
+      color: var(--mid);
+      padding-bottom: 6px;
+    }
+    .billing-note {
+      font-size: 0.75rem;
+      color: var(--mid);
+      margin-bottom: 24px;
+    }
+
+    /* Features */
+    .p-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+      flex: 1;
+    }
+    .p-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: rgba(240,237,232,0.7);
+      line-height: 1.4;
+    }
+    .check-icon {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: rgba(200,245,59,0.15);
+      border: 1px solid var(--lime);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .check-icon svg {
+      width: 9px; height: 9px;
+      stroke: var(--lime);
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    .p-card hr {
+      border: none;
+      border-top: 1px solid rgba(240,237,232,0.08);
+      margin-bottom: 20px;
+    }
+
+    /* Pricing Buttons */
+    .p-btn {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 13px 20px;
+      border-radius: 4px;
+      border: 1px solid rgba(240,237,232,0.15);
+      color: var(--mid);
+      background: transparent;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .p-btn:hover {
+      border-color: var(--lime);
+      color: var(--lime);
+      background: rgba(200,245,59,0.08);
+    }
+    .p-btn.p-primary {
+      background: var(--lime);
+      color: var(--black);
+      border-color: var(--lime);
+      box-shadow: 0 4px 20px rgba(200,245,59,0.2);
+    }
+    .p-btn.p-primary:hover {
+      background: var(--chalk);
+      border-color: var(--chalk);
+      box-shadow: 0 6px 28px rgba(240,237,232,0.15);
+      color: var(--black);
+    }
+
+    .plan-desc {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--mid);
+      margin-top: 12px;
+    }
+
+    /* Confetti canvas */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* Price flip animation */
+    .price-amount.flip {
+      animation: priceFlip 0.35s ease;
+    }
+
+    @keyframes priceFlip {
+      0%   { opacity: 1; transform: translateY(0); }
+      40%  { opacity: 0; transform: translateY(-10px); }
+      60%  { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MAP SECTION ── */
+    #locations { border-top: 1px solid var(--border); }
+
+    .locations-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 48px;
+      margin-top: 56px;
+      align-items: start;
+    }
+    @media(max-width:900px){ .locations-layout { grid-template-columns: 1fr; } }
+
+    .location-list { display: flex; flex-direction: column; gap: 2px; }
+
+    .loc-item {
+      padding: 20px 24px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .loc-item:hover, .loc-item.active {
+      background: var(--gray);
+      border-color: rgba(200,245,59,0.3);
+    }
+    .loc-item.active .loc-dot { background: var(--lime); }
+    .loc-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--mid);
+      margin-top: 5px;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .loc-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--chalk);
+    }
+    .loc-detail { font-size: 0.78rem; color: var(--mid); margin-top: 3px; }
+
+    .map-wrap {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+    .map-wrap iframe {
+      display: block;
+      width: 100%; height: 480px;
+      border: none;
+      filter: grayscale(60%) invert(1) contrast(0.9) sepia(20%);
+    }
+    .map-overlay-label {
+      position: absolute; top: 16px; left: 16px;
+      background: var(--black);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--lime);
+    }
+
+    /* ── BOOKING ── */
+    #book {
+      border-top: 1px solid var(--border);
+      background: var(--off-white);
+      color: var(--black);
+    }
+    #book .section-tag { color: var(--black); }
+    #book .section-tag::after { background: var(--black); }
+    #book .section-title { color: var(--black); }
+
+    .book-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      margin-top: 56px;
+      align-items: start;
+    }
+    @media(max-width:900px){ .book-layout { grid-template-columns: 1fr; gap: 48px; } }
+
+    .book-info p {
+      font-size: 1rem; font-weight: 300;
+      line-height: 1.8; color: rgba(8,8,9,0.65);
+      margin-bottom: 24px;
+    }
+
+    .book-steps { display: flex; flex-direction: column; gap: 20px; margin-top: 32px; }
+    .book-step { display: flex; gap: 20px; align-items: flex-start; }
+    .step-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem; line-height: 1;
+      color: rgba(8,8,9,0.15);
+      flex-shrink: 0; width: 36px;
+    }
+    .step-text strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--black); margin-bottom: 4px;
+    }
+    .step-text span { font-size: 0.85rem; font-weight: 300; color: rgba(8,8,9,0.6); }
+
+    .book-form { display: flex; flex-direction: column; gap: 18px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media(max-width:500px){ .form-row { grid-template-columns: 1fr; } }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(8,8,9,0.5);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.92rem;
+      padding: 12px 16px;
+      background: rgba(8,8,9,0.06);
+      border: 1px solid rgba(8,8,9,0.15);
+      border-radius: 4px;
+      color: var(--black);
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--black);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+
+    .form-submit {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.88rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 16px 40px;
+      background: var(--black); color: var(--off-white);
+      border: none; border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      align-self: flex-start;
+    }
+    .form-submit:hover { background: #1e1e21; transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 48px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
+    }
+    @media(max-width:768px){ footer { padding: 32px 24px; } }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem; letter-spacing: 0.08em;
+      color: var(--chalk); text-decoration: none;
+    }
+    .footer-logo span { color: var(--lime); }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a {
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--mid); text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--chalk); }
+    .footer-copy { font-size: 0.72rem; color: var(--mid); letter-spacing: 0.06em; }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-left.active { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-right.active { opacity: 1; transform: translateX(0); }
+
+    .form-success {
+      display: none;
+      background: rgba(200,245,59,0.1);
+      border: 1px solid var(--lime);
+      border-radius: 4px;
+      padding: 20px 24px;
+      color: var(--black);
+      font-size: 0.9rem;
+    }
+    .form-success.show { display: block; }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- ════════════════════════════════════════
+       NAV
+       ════════════════════════════════════════ -->
+  <nav id="main-nav">
+    <a href="#hero" class="nav-logo">GET FIT<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#pricing-section">Pricing</a></li>
+      <li><a href="#locations">Locations</a></li>
+    </ul>
+    <a href="#book" class="nav-cta">Book a Session</a>
+  </nav>
+
+  <!-- ════════════════════════════════════════
+       HERO
+       ════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+
+    <div class="hero-eyebrow">Auckland, New Zealand — Outdoor Fitness</div>
+
+    <h1 class="hero-title">
+      GET FIT<br>
+      <em>W/LORENZO</em>
+    </h1>
+
+    <div class="hero-sub-row">
+      <p>Real strength, built outdoors. Calisthenics-based training across Auckland's best spots — no gym, no machines, just you and the work.</p>
+      <div class="hero-cta">
+        <a href="#book" class="btn-primary">Book Now</a>
+        <a href="#schedule" class="btn-ghost">View Schedule</a>
+      </div>
+    </div>
+
+    <div class="stat-bar">
+      <div class="stat-item">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Auckland Locations</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">7</div>
+        <div class="stat-label">Sessions Per Week</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Outdoor Training</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">0</div>
+        <div class="stat-label">Gym Required</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       ABOUT / CALISTHENICS
+       ════════════════════════════════════════ -->
+  <section id="about">
+    <div class="about-img-wrap reveal-left">
+      <img src="https://images.unsplash.com/photo-1598971639058-fab3c3109a00?w=800&q=80" alt="Calisthenics training"/>
+      <div class="about-label">Calisthenics Based</div>
+    </div>
+    <div class="about-content reveal-right">
+      <div>
+        <div class="section-tag">About Lorenzo</div>
+        <h2 class="section-title">TRAIN SMART.<br>MOVE FREE.</h2>
+      </div>
+      <p>I'm Lorenzo — a certified personal trainer running outdoor fitness classes across Auckland. My sessions are built around your body and the environment around you. No crowded gyms, no expensive equipment. Just results.</p>
+      <p>Every session is designed around <strong style="color:var(--lime);font-weight:500;">calisthenics</strong> — the art of using your own bodyweight as resistance. It's one of the oldest and most effective forms of training on the planet.</p>
+
+      <div>
+        <div class="section-tag" style="margin-bottom:12px;">What is Calisthenics?</div>
+        <p style="margin-bottom:16px;">Calisthenics uses your own bodyweight — push-ups, pull-ups, dips, squats, planks — to build genuine functional strength, flexibility, and endurance. You develop real control over your body, not just size for the mirror.</p>
+        <div class="cali-pills">
+          <span class="cali-pill">Bodyweight Strength</span>
+          <span class="cali-pill">Core Control</span>
+          <span class="cali-pill">Mobility</span>
+          <span class="cali-pill">Endurance</span>
+          <span class="cali-pill">No Equipment</span>
+          <span class="cali-pill">All Fitness Levels</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SCHEDULE
+       ════════════════════════════════════════ -->
+  <section id="schedule">
+    <div class="section-tag reveal">Weekly Schedule</div>
+    <h2 class="section-title reveal">THIS WEEK'S<br>SESSIONS</h2>
+
+    <div class="schedule-grid">
+      <div class="day-card reveal" style="transition-delay:0ms">
+        <div class="day-name">MON</div>
+        <span class="day-tag">Strength</span>
+        <div class="day-time">6:00 AM</div>
+        <div class="day-workout">Upper Body Push<br><small style="color:var(--mid);font-weight:300;">Push-ups, Dips, Pike Press</small></div>
+        <div class="day-location">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2C7 2 4 6.4 4 10c0 5.3 8 12 8 12s8-6.7 8-12c0-3.6-3-8-8-8z"/></svg>
+          Cornwall Park
+        </div>
+      </div>
+
+      <div class="day-card reveal" style="transition-delay:60ms">
+        <div class="day-name">TUE</div>
+        <span class="day-tag">Cardio</span>
+        <div class="day-time">6:30 AM</div>
+        <div class="day-workout">HIIT Circuit<br><small style="color:var(--mid);font-weight:300;">Burpees, Sprints, Jump Squats</small></div>
+        <div class="day-location">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2C7 2 4 6.4 4 10c0 5.3 8 12 8 12s8-6.7 8-12c0-3.6-3-8-8-8z"/></svg>
+          Pt Chevalier Beach
+        </div>
+      </div>
+
+      <div class="day-card reveal" style="transition-delay:120ms">
+        <div class="day-name">WED</div>
+        <span class="day-tag">Core</span>
+        <div class="day-time">7:00 AM</div>
+        <div class="day-workout">Core & Stability<br><small style="color:var(--mid);font-weight:300;">L-Sits, Plank Holds, Dragon Flags</small></div>
+        <div class="night-time"> come for a night sesh at 8:00 PM</div>
+        <div class="day-location">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2C7 2 4 6.4 4 10c0 5.3 8 12 8 12s8-6.7 8-12c0-3.6-3-8-8-8z"/></svg>
+          Western Springs Park
+        </div>
+      </div>
+
+      <div class="day-card reveal" style="transition-delay:180ms">
+        <div class="day-name">THU</div>
+        <span class="day-tag">Pull</span>
+        <div class="day-time">6:00 AM</div>
+        <div class="day-workout">Upper Body Pull<br><small style="color:var(--mid);font-weight:300;">Pull-ups, Rows, Chin-ups</small></div>
+        <div class="day-location">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2C7 2 4 6.4 4 10c0 5.3 8 12 8 12s8-6.7 8-12c0-3.6-3-8-8-8z"/></svg>
+          Okahu Bay Reserve
+        </div>
+      </div>
+
+      <div class="day-card reveal" style="transition-delay:240ms">
+        <div class="day-name">FRI</div>
+        <span class="day-tag">Full Body</span>
+        <div class="day-time">6:30 AM</div>
+        <div class="day-workout">Full Body Flow<br><small style="color:var(--mid);font-weight:300;">Muscle-ups, Squats, Handstand Work</small></div>
+        <div class="day-location">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2C7 2 4 6.4 4 10c0 5.3 8 12 8 12s8-6.7 8-12c0-3.6-3-8-8-8z"/></svg>
+          Cornwall Park
+        </div>
+      </div>
+
+      <div class="day-card reveal" style="transition-delay:300ms">
+        <div class="day-name">SAT</div>
+        <span class="day-tag">Group</span>
+        <div class="day-time">8:00 AM</div>
+        <div class="day-workout">Group Bootcamp<br><small style="color:var(--mid);font-weight:300;">Mixed format, all welcome</small></div>
+        <div class="day-location">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2C7 2 4 6.4 4 10c0 5.3 8 12 8 12s8-6.7 8-12c0-3.6-3-8-8-8z"/></svg>
+          Victoria Park
+        </div>
+      </div>
+
+      <div class="day-card rest reveal" style="transition-delay:360ms">
+        <div class="day-name">SUN</div>
+        <div class="day-workout" style="color:var(--mid);">Rest &amp; Recovery</div>
+        <div class="day-location" style="margin-top:auto;">Active recovery recommended</div>
+      </div>
+    </div>
+
+    <p class="schedule-note">Payment is contactless card after each session. No upfront costs.</p>
+  </section>
+
+  
+  <!-- ════════════════════════════════════════
+       PRICING (Monthly/Annual toggle)
+       ════════════════════════════════════════ -->
+  <section id="pricing-section">
+    <div class="pricing-container">
+      <div class="pricing-header">
+        <div class="section-tag reveal" style="justify-content:center;">Pricing Plans</div>
+        <h2 class="reveal" style="transition-delay:80ms;">LORENZO'S<br><em>AWESOME PRICING</em></h2>
+        <p class="reveal" style="transition-delay:160ms;">Choose the plan that works for you. Then get the results you want to see.</p>
+      </div>
+
+      <div class="toggle-wrap">
+        <span class="toggle-label active" id="label-monthly">Monthly</span>
+        <label class="switch">
+          <input type="checkbox" id="billing-toggle">
+          <span class="slider-toggle"></span>
+        </label>
+        <span class="toggle-label" id="label-annual">Annual</span>
+        <span class="save-badge">SAVE 20%</span>
+      </div>
+
+      <div class="pricing-cards" id="cards-container">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       LOCATIONS
+       ════════════════════════════════════════ -->
+  <section id="locations">
+    <div class="section-tag reveal">Auckland Locations</div>
+    <h2 class="section-title reveal">WHERE WE<br>TRAIN</h2>
+
+    <div class="locations-layout">
+      <div class="location-list reveal-left">
+        <div class="loc-item active" onclick="focusMap(-36.9009,174.7787,this)">
+          <div class="loc-dot"></div>
+          <div>
+            <div class="loc-name">Cornwall Park</div>
+            <div class="loc-detail">Mon & Fri · Strength + Full Body</div>
+          </div>
+        </div>
+        <div class="loc-item" onclick="focusMap(-36.8714,174.7256,this)">
+          <div class="loc-dot"></div>
+          <div>
+            <div class="loc-name">Pt Chevalier Beach</div>
+            <div class="loc-detail">Tue · HIIT Cardio</div>
+          </div>
+        </div>
+        <div class="loc-item" onclick="focusMap(-36.8685,174.7314,this)">
+          <div class="loc-dot"></div>
+          <div>
+            <div class="loc-name">Western Springs Park</div>
+            <div class="loc-detail">Wed · Core & Stability</div>
+          </div>
+        </div>
+        <div class="loc-item" onclick="focusMap(-36.8549,174.7938,this)">
+          <div class="loc-dot"></div>
+          <div>
+            <div class="loc-name">Okahu Bay Reserve</div>
+            <div class="loc-detail">Thu · Pull Day</div>
+          </div>
+        </div>
+        <div class="loc-item" onclick="focusMap(-36.8560,174.7427,this)">
+          <div class="loc-dot"></div>
+          <div>
+            <div class="loc-name">Victoria Park</div>
+            <div class="loc-detail">Sat · Group Bootcamp</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-wrap reveal-right">
+        <div class="map-overlay-label">Auckland Training Locations</div>
+        <iframe
+          id="map-frame"
+          src="https://maps.google.com/maps?q=Cornwall+Park+Auckland&z=13&output=embed"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       BOOKING
+       ════════════════════════════════════════ -->
+  <section id="book">
+    <div class="section-tag">Book a Session</div>
+    <h2 class="section-title">READY TO<br>START?</h2>
+
+    <div class="book-layout">
+      <div class="book-info reveal-left">
+        <p>Book your spot in an upcoming session or reach out for a personal training enquiry. Lorenzo will confirm your booking via email or text within a few hours.</p>
+        <p style="color:rgba(8,8,9,0.5);font-size:0.85rem;">No online payments. All sessions are paid by contactless card directly after training.</p>
+
+        <div class="book-steps">
+          <div class="book-step">
+            <div class="step-num">01</div>
+            <div class="step-text">
+              <strong>Fill in the form</strong>
+              <span>Choose a session type, day, and drop your details.</span>
+            </div>
+          </div>
+          <div class="book-step">
+            <div class="step-num">02</div>
+            <div class="step-text">
+              <strong>Get confirmation</strong>
+              <span>Lorenzo will confirm your spot and send the exact meet-up point.</span>
+            </div>
+          </div>
+          <div class="book-step">
+            <div class="step-num">03</div>
+            <div class="step-text">
+              <strong>Show up &amp; train</strong>
+              <span>Arrive on time, give it everything. Pay by card after the session.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal-right">
+        <form class="book-form" id="book-form" onsubmit="handleBooking(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="Alex" required/>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Smith" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="alex@email.com" required/>
+          </div>
+          <div class="form-group">
+            <label>Phone (optional)</label>
+            <input type="tel" placeholder="+64 21 000 0000"/>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Session Type</label>
+              <select required>
+                <option value="" disabled selected>Select…</option>
+                <option>Drop-In Class ($25)</option>
+                <option>Personal Training ($70)</option>
+                <option>10-Session Pack ($200)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Preferred Day</label>
+              <select required>
+                <option value="" disabled selected>Select…</option>
+                <option>Monday — Upper Body Push</option>
+                <option>Tuesday — HIIT Cardio</option>
+                <option>Wednesday — Core & Stability</option>
+                <option>Thursday — Upper Body Pull</option>
+                <option>Friday — Full Body Flow</option>
+                <option>Saturday — Group Bootcamp</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Anything Lorenzo should know?</label>
+            <textarea placeholder="Injuries, fitness level, goals…"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Booking Request →</button>
+        </form>
+        <div class="form-success" id="form-success">
+           &nbsp; Booking request sent! Lorenzo will be in touch within a few hours to confirm your spot.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FOOTER
+       ════════════════════════════════════════ -->
+  <footer>
+    <a href="#hero" class="footer-logo">GET FIT<span>.</span></a>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#services">Services</a>
+      <a href="#pricing-section">Pricing</a>
+      <a href="#locations">Locations</a>
+      <a href="#book">Book</a>
+    </div>
+    <span class="footer-copy">© 2025 Lorenzo Personal Training · Auckland</span>
+  </footer>
+
+  <!-- ════════════════════════════════════════
+       SCRIPTS
+       ════════════════════════════════════════ -->
+  <script>
+    // ── Custom cursor ──
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+
+    function bindCursorExpand() {
+      document.querySelectorAll('a, button, .day-card, .loc-item, .service-card, .p-card, .switch, .p-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+      });
+    }
+    bindCursorExpand();
+
+    // ── Navbar scroll ──
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ── Reveal on scroll ──
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => obs.observe(el));
+
+    // ── Map focus ──
+    function focusMap(lat, lng, el) {
+      document.querySelectorAll('.loc-item').forEach(i => i.classList.remove('active'));
+      el.classList.add('active');
+      const q = el.querySelector('.loc-name').textContent + ' Auckland';
+      document.getElementById('map-frame').src =
+        `https://maps.google.com/maps?q=${encodeURIComponent(q)}&z=15&output=embed`;
+    }
+
+    // ── Booking form ──
+    function handleBooking(e) {
+      e.preventDefault();
+      document.getElementById('book-form').style.display = 'none';
+      document.getElementById('form-success').classList.add('show');
+    }
+
+    // ══════════════════════════════════════════
+    // PRICING SECTION LOGIC
+    // ══════════════════════════════════════════
+    const plans = [
+      {
+        name: "Free / One-Off",
+        price: 25,
+        yearlyPrice: 20,
+        period: "per session",
+        features: [
+          "Drop in to any scheduled outdoor class",
+          "Calisthenics coaching from Lorenzo",
+          "All fitness levels welcome",
+          "No lock-in contract",
+          "Community group environment",
+        ],
+        description: "Perfect for trying us out or training casually",
+        buttonText: "Book a Drop-In",
+        href: "#book",
+        isPopular: false,
+      },
+      {
+        name: "Committed Individual",
+        price: 50,
+        yearlyPrice: 40,
+        period: "per week",
+        features: [
+          "3 outdoor group sessions per week",
+          "Personalised scaling from Lorenzo",
+          "Priority spot booking",
+          "Progress tracking & feedback",
+          "Community WhatsApp group access",
+          "One free PT session per month",
+          "Flexible scheduling across all locations",
+        ],
+        description: "Ideal for those serious about consistent results",
+        buttonText: "Get Started",
+        href: "#book",
+        isPopular: true,
+      },
+      {
+        name: "1-on-1 Masterclass",
+        price: 70,
+        yearlyPrice: 56,
+        period: "per session",
+        features: [
+          "Everything in Committed plan",
+          "Private 1-on-1 outdoor sessions",
+          "Custom calisthenics programme",
+          "Nutrition guidance",
+          "Flexible time & location",
+          "Direct contact with Lorenzo",
+          "Video technique review",
+          "Goal-specific periodisation",
+        ],
+        description: "Premium personalised coaching for dedicated athletes",
+        buttonText: "Book a Consultation",
+        href: "#book",
+        isPopular: false,
+      },
+    ];
+
+    let isMonthly = true;
+
+    function checkIcon() {
+      return `<span class="check-icon"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>`;
+    }
+
+    function renderCards() {
+      const container = document.getElementById('cards-container');
+      container.innerHTML = plans.map((plan, i) => `
+        <div class="p-card ${plan.isPopular ? 'popular' : 'side'}">
+          ${plan.isPopular ? `<div class="popular-badge"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Most Popular</div>` : ''}
+          <div class="plan-name">${plan.name}</div>
+          <div class="price-wrap">
+            <span class="price-amount" id="price-${i}">$${isMonthly ? plan.price : plan.yearlyPrice}</span>
+            <span class="price-period">/ ${plan.period}</span>
+          </div>
+          <div class="billing-note">${isMonthly ? 'standard rate' : 'annual commitment rate — save 20%'}</div>
+          <ul class="p-features">
+            ${plan.features.map(f => `<li>${checkIcon()}<span>${f}</span></li>`).join('')}
+          </ul>
+          <hr>
+          <a href="${plan.href}" class="p-btn ${plan.isPopular ? 'p-primary' : ''}">${plan.buttonText}</a>
+          <p class="plan-desc">${plan.description}</p>
+        </div>
+      `).join('');
+
+      // Re-bind cursor expand for new elements
+      bindCursorExpand();
+    }
+
+    function updatePrices(animate) {
+      plans.forEach((plan, i) => {
+        const el = document.getElementById(`price-${i}`);
+        if (!el) return;
+        if (animate) {
+          el.classList.remove('flip');
+          void el.offsetWidth;
+          el.classList.add('flip');
+        }
+        el.textContent = `$${isMonthly ? plan.price : plan.yearlyPrice}`;
+      });
+
+      document.querySelectorAll('.billing-note').forEach(el => {
+        el.textContent = isMonthly ? 'standard rate' : 'annual commitment rate — save 20%';
+      });
+    }
+
+    // Confetti (fires when toggling to annual)
+    function launchConfetti(switchEl) {
+      const rect = switchEl.getBoundingClientRect();
+      const canvas = document.getElementById('confetti-canvas');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const ctx = canvas.getContext('2d');
+
+      const particles = Array.from({ length: 60 }, () => ({
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+        vx: (Math.random() - 0.5) * 8,
+        vy: (Math.random() - 3) * 6,
+        size: Math.random() * 6 + 3,
+        color: ['#c8f53b','#a0e85c','#f0ede8','#ffffff','#6b6b70'][Math.floor(Math.random()*5)],
+        alpha: 1,
+        gravity: 0.18,
+      }));
+
+      let frame;
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let alive = false;
+        for (const p of particles) {
+          p.vy += p.gravity;
+          p.x += p.vx;
+          p.y += p.vy;
+          p.alpha -= 0.018;
+          if (p.alpha > 0) {
+            alive = true;
+            ctx.globalAlpha = p.alpha;
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+        ctx.globalAlpha = 1;
+        if (alive) frame = requestAnimationFrame(draw);
+        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      cancelAnimationFrame(frame);
+      draw();
+    }
+
+    // Toggle listener
+    document.getElementById('billing-toggle').addEventListener('change', function() {
+      isMonthly = !this.checked;
+      document.getElementById('label-monthly').classList.toggle('active', isMonthly);
+      document.getElementById('label-annual').classList.toggle('active', !isMonthly);
+
+      if (!isMonthly) launchConfetti(this);
+      updatePrices(true);
+    });
+
+    // Initial render
+    renderCards();
+  </script>
+</body>
+</html>
